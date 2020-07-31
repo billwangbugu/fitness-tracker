@@ -29,7 +29,18 @@
               "src/styles.scss",
               "src/my-theme.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "allowedCommonJsDependencies": [
+              "lodash",
+              "angularfire2",
+              "angularfire2/firestore",
+              "angularfire2/auth",
+              "firebase/app",
+              "@firebase/app",
+              "@firebase/auth",
+              "@firebase/firestore",
+              "@firebase/util"
+            ]
           },
           "configurations": {
             "production": {
