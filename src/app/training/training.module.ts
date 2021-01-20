@@ -9,6 +9,7 @@ import { StoreModule } from "@ngrx/store";
 import { SharedModule } from "../shared/shared.module";
 import { TrainingRoutingModule } from "./training-routing.module";
 import { trainingReducer } from "./training.reduce";
+import { CountdownComponent } from "./current-training/countdown.component";
 
 @NgModule({
   imports: [
@@ -23,6 +24,7 @@ import { trainingReducer } from "./training.reduce";
     CurrentTrainingComponent,
     StopTrainingComponent,
     OldTrainingComponent,
+    CountdownComponent,
   ],
   entryComponents: [StopTrainingComponent],
 })

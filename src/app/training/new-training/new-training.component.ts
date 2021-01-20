@@ -16,6 +16,8 @@ import * as fromTraining from "../training.reduce";
 export class NewTrainingComponent implements OnInit {
   exercises$: Observable<Exercise[]>;
   isLoading$: Observable<boolean>;
+  selectedExercise$: Observable<Exercise>;
+  isSelected = false;
 
   constructor(
     private trainingService: TrainingService,
@@ -25,6 +27,9 @@ export class NewTrainingComponent implements OnInit {
   ngOnInit() {
     this.isLoading$ = this.store.select(fromRoot.getIsLoading);
     this.exercises$ = this.store.select(fromTraining.getAvailableExercises);
+    this.selectedExercise$ = this.store.select(
+      fromTraining.getSelectedExercise
+    );
     this.fetchExercises();
   }
 
@@ -34,5 +39,11 @@ export class NewTrainingComponent implements OnInit {
 
   onStartTraining(form: NgForm) {
     this.trainingService.startExercise(form.value.exercise);
+    this.isSelected = false;
+  }
+
+  onExerciseSelected(val) {
+    this.isSelected = true;
+    this.trainingService.selectedExercise(val);
   }
 }

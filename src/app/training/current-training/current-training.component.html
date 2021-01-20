@@ -8,6 +8,10 @@
     [value]="progress"
   ></mat-progress-spinner>
   <h1>{{ progress }}%</h1>
+  <app-countdown
+    [duration]="duration"
+    [pauseTimer]="pauseTimer"
+  ></app-countdown>
   <p>Keep on going, you can do it!</p>
   <button mat-raised-button color="accent" (click)="onStop()">Stop</button>
 </section>

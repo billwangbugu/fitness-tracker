@@ -4,6 +4,7 @@ import {
   TrainingActions,
   SET_AVAILABLE_TRAINING,
   SET_FINISHED_TRAINING,
+  SELECTED_EXERCISE,
   START_TRAINING,
   STOP_TRAINING,
 } from "./training.actions";
@@ -13,6 +14,7 @@ import * as fromRoot from "../app.reducer";
 export interface TrainingState {
   availableExercises: Exercise[];
   finishedExercises: Exercise[];
+  selectedExercise: Exercise;
   activeTraining: Exercise;
 }
 
@@ -23,6 +25,7 @@ export interface State extends fromRoot.State {
 const initialState: TrainingState = {
   availableExercises: [],
   finishedExercises: [],
+  selectedExercise: null,
   activeTraining: null,
 };
 
@@ -37,6 +40,13 @@ export function trainingReducer(state = initialState, action: TrainingActions) {
       return {
         ...state,
         finishedExercises: action.payload,
+      };
+    case SELECTED_EXERCISE:
+      return {
+        ...state,
+        selectedExercise: {
+          ...state.availableExercises.find((ex) => ex.id === action.payload),
+        },
       };
     case START_TRAINING:
       return {
@@ -66,6 +76,10 @@ export const getAvailableExercises = createSelector(
 export const getFinishedExercises = createSelector(
   getTrainingState,
   (state: TrainingState) => state.finishedExercises
+);
+export const getSelectedExercise = createSelector(
+  getTrainingState,
+  (state: TrainingState) => state.selectedExercise
 );
 export const getActiveTraining = createSelector(
   getTrainingState,

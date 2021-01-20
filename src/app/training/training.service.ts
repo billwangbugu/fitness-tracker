@@ -59,6 +59,10 @@ export class TrainingService {
     this.store.dispatch(new Training.StartTraining(selectedId));
   }
 
+  selectedExercise(selectedId: string) {
+    this.store.dispatch(new Training.SelectedExercise(selectedId));
+  }
+
   completeExercise() {
     this.store
       .select(fromTraining.getActiveTraining)

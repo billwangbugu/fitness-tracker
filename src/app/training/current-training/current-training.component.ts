@@ -14,7 +14,9 @@ import * as fromTraining from "../training.reduce";
 })
 export class CurrentTrainingComponent implements OnInit {
   progress = 0;
+  duration: number;
   timer: number;
+  pauseTimer = false;
 
   constructor(
     private dialog: MatDialog,
@@ -31,6 +33,7 @@ export class CurrentTrainingComponent implements OnInit {
       .select(fromTraining.getActiveTraining)
       .pipe(take(1))
       .subscribe((ex) => {
+        this.duration = ex.duration;
         const step = (ex.duration / 100) * 1000;
         this.timer = window.setInterval(() => {
           this.progress = this.progress + 1;
@@ -44,6 +47,7 @@ export class CurrentTrainingComponent implements OnInit {
 
   onStop() {
     clearInterval(this.timer);
+    this.pauseTimer = true;
     const dialogRef = this.dialog.open(StopTrainingComponent, {
       data: { progress: this.progress },
     });
@@ -53,6 +57,7 @@ export class CurrentTrainingComponent implements OnInit {
         this.trainingService.cancelExercise(this.progress);
       } else {
         this.startOrResumeTimer();
+        this.pauseTimer = false;
       }
     });
   }
